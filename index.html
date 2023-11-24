@@ -35,6 +35,11 @@
       <input type="text" name="college" id="college">
       <button id='apiCall'>Call API</button>
     </div>
+    <div id='listOfCollege'>
+      
+    </div>
+
+    <p>Iteration 1</p>
     
 
     <script>
@@ -44,8 +49,9 @@
       const inputCollege = document.getElementById('college');      
       const addButton = document.getElementById('add');
       const apiButton = document.getElementById('apiCall');
+      const listOfCollege=document.getElementById('listOfCollege');
 
-      console.log(inputCollege.value);
+      console.log('college', inputCollege.value);
 
       apiButton.addEventListener('click',()=>{
         const collegeName=inputCollege.value;
@@ -61,7 +67,13 @@
                   throw new Error(`HTTP error: ${response.status}`);
                 }              
                 return response.json();}
-              ).then( json => console.log({json}) )
+              ).then( json => {console.log({json})
+                              const listOfCollegeVal=json.map((index,item)=>{
+                                return(<div id=`${index}`>`${item}`</div>)
+                              })
+                              listOfCollege.appendChild(listOfCollegeVal)
+                              } 
+                    )
               .catch( err => console.error(`Fetch problem: ${err.message}`) );
       })
                   
