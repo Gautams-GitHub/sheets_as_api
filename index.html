@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping list example</title>
+    <style>
+      li {
+        margin-bottom: 10px;
+      }
+
+      li button {
+        font-size: 12px;
+        margin-left: 20px;
+        color: #666;
+      }
+    </style>
+  </head>
+  <body>
+
+    <h1>My shopping list</h1>
+
+    <div>
+      <label for="item">Enter a new item:</label>
+      <input type="text" name="item" id="item">
+      <button id="add">Add item</button>
+    </div>
+
+    <ul>
+
+    </ul>
+    <button id='apiCall'>Call API</button>
+
+    <script>
+      const list = document.querySelector('ul');
+      const input = document.querySelector('input');
+      const addButton = document.getElementById('add');
+      const apiButton = document.getElementById('apiCall');
+
+      apiButton.addEventListener('click',()=>{
+        fetch('https://script.google.com/macros/s/AKfycbzlxw3OPo5jTiOLnRemB-7krKFdcC7-rpcWB6NwXDpUS5Vb4p-m2_z9ZLG9UxhB5A-x/exec')
+          .then(response => {
+                if (!response.ok) {
+                  throw new Error(`HTTP error: ${response.status}`);
+                }
+              
+                return response.json();}
+              ).then( json => initialize(json) )
+              .catch( err => console.error(`Fetch problem: ${err.message}`) );
+      })
+                  
+
+      addButton.addEventListener('click', () => {
+        const myItem = input.value;
+        input.value = '';
+
+        const listItem = document.createElement('li');
+        const listText = document.createElement('span');
+        const listBtn = document.createElement('button');
+
+        listItem.appendChild(listText);
+        listText.textContent = myItem;
+        listItem.appendChild(listBtn);
+        listBtn.textContent = 'Delete';
+        list.appendChild(listItem);
+
+        listBtn.addEventListener('click', () => {
+          list.removeChild(listItem);
+        });
+
+        input.focus();
+      });
+    </script>
+  </body>
+</html>
