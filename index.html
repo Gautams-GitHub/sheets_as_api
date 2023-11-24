@@ -39,7 +39,7 @@
       
     </div>
 
-    <p>Iteration 1</p>
+    <p>Iteration 2</p>
     
 
     <script>
@@ -69,7 +69,13 @@
                 return response.json();}
               ).then( json => {console.log({json})
                               const listOfCollegeVal=json.map((index,item)=>{
-                                return(<div id=`${index}`>`${item}`</div>)
+                                const listOfCollegeVal = json.map((index, item) => {
+                                                        const div = document.createElement('div');
+                                                        div.id = 'college'+index;
+                                                        div.textContent = item;
+                                                        return div;
+                                                    });
+
                               })
                               listOfCollege.appendChild(listOfCollegeVal)
                               } 
