@@ -39,7 +39,7 @@
       
     </div>
 
-    <p>Iteration 2</p>
+    <p>Iteration 3</p>
     
 
     <script>
@@ -67,9 +67,10 @@
                   throw new Error(`HTTP error: ${response.status}`);
                 }              
                 return response.json();}
-              ).then( json => {console.log({json})
-                              const listOfCollegeVal=json.map((index,item)=>{
-                                const listOfCollegeVal = json.map((index, item) => {
+              ).then( json => {console.log({json});
+                               console.log({json:json.data});
+                              
+                                const listOfCollegeVal = json.data.map((index, item) => {
                                                         const div = document.createElement('div');
                                                         div.id = 'college'+index;
                                                         div.textContent = item;
