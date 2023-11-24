@@ -29,21 +29,37 @@
     <ul>
 
     </ul>
-    <button id='apiCall'>Call API</button>
+
+    <div>
+      <label for="college">Enter a college:</label>
+      <input type="text" name="college" id="college">
+      <button id='apiCall'>Call API</button>
+    </div>
+    
 
     <script>
+      
       const list = document.querySelector('ul');
-      const input = document.querySelector('input');
+      const input = document.getElementById('item');
+      const inputCollege = document.getElementById('college');      
       const addButton = document.getElementById('add');
       const apiButton = document.getElementById('apiCall');
 
+      console.log(inputCollege.value);
+
       apiButton.addEventListener('click',()=>{
-        fetch('https://script.google.com/macros/s/AKfycbzlxw3OPo5jTiOLnRemB-7krKFdcC7-rpcWB6NwXDpUS5Vb4p-m2_z9ZLG9UxhB5A-x/exec')
+        const collegeName=inputCollege.value;
+        let url='';
+        if(collegeName&&collegeName.length>0){
+          url=`https://script.google.com/macros/s/AKfycbzlxw3OPo5jTiOLnRemB-7krKFdcC7-rpcWB6NwXDpUS5Vb4p-m2_z9ZLG9UxhB5A-x/exec?${collegeName}`;
+        }else{
+          url='https://script.google.com/macros/s/AKfycbzlxw3OPo5jTiOLnRemB-7krKFdcC7-rpcWB6NwXDpUS5Vb4p-m2_z9ZLG9UxhB5A-x/exec';
+        }
+        fetch(url)
           .then(response => {
                 if (!response.ok) {
                   throw new Error(`HTTP error: ${response.status}`);
-                }
-              
+                }              
                 return response.json();}
               ).then( json => console.log({json}) )
               .catch( err => console.error(`Fetch problem: ${err.message}`) );
