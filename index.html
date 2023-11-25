@@ -108,7 +108,7 @@
       });
 
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('https://raw.githubusercontent.com/Gautams-GitHub/sheets_as_api/main/sw.js')
+        navigator.serviceWorker.register('./sw.js')
       .then((registration) => {
         console.log('Service Worker registered with scope:', registration.scope);
       })
